@@ -56,7 +56,7 @@ left join loans on loans.bookid=bookcategories.bookid
 and returndate is null
 group by bookcategories.categoryid;
 
--- 9. Total Number of Loans and Reservations Per Member --correct
+-- 9. Total Number of Loans and Reservations Per Member 
 
 select members.memberid,firstname,lastname,count(loanid) as no_of_loans,count(reservationid) as no_of_reservations
 from members left join reservations
@@ -65,7 +65,7 @@ join loans on loans.memberid=members.memberid
 group by members.memberid,firstname,lastname;
 
 
--- 10. Find Members Who Borrowed Books by the Same Author More Than Once ---correct
+-- 10. Find Members Who Borrowed Books by the Same Author More Than Once 
 select members.firstname,members.lastname,authors.firstname as author_first_name ,authors.lastname as author_last_name,count(*) as no_of_times
 from members join loans on members.memberid=loans.memberid
 join books on books.bookid=loans.bookid
@@ -75,7 +75,7 @@ having no_of_times>1;
 
 
 
--- 11. List Members Who Have Both Borrowed and Reserved the Same Book --correct
+-- 11. List Members Who Have Both Borrowed and Reserved the Same Book 
 
 select members.memberid,members.firstname as mem_first_name,members.lastname as mem_last_name,books.bookid,title
 from members left join loans on members.memberid=loans.memberid
@@ -85,14 +85,14 @@ join books on books.bookid=loans.bookid and books.bookid = reservations.bookid;
 
 
 
--- 12. Books Loaned and Never Returned --correct
+-- 12. Books Loaned and Never Returned
 select books.title,members.firstname as mem_first_name,members.lastname as mem_last_name from loans
 left join books on books.bookid=loans.bookid
 left join members on loans.memberid=members.memberid
 where loans.returndate is null;
 
 
--- 13. Top 5 Authors with the Most Borrowed Books --correct
+-- 13. Top 5 Authors with the Most Borrowed Books 
 select authors.authorid,authors.firstname as author_name,count(loans.loanid) as no_of_times_borrowed
 from authors join books
 on authors.authorid=books.authorid
